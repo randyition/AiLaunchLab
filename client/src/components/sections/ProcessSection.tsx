@@ -1,32 +1,51 @@
 import { motion } from "framer-motion";
 import { fadeIn, staggerContainer } from "@/lib/animations";
 
-const ProcessStep = ({ number, title, description, deliverables, image, reverse = false }) => {
+interface DeliverableItem {
+  icon: string;
+  text: string;
+}
+
+interface ProcessStepProps {
+  number: number;
+  title: string;
+  description: string;
+  deliverables: DeliverableItem[];
+  image: string;
+  reverse?: boolean;
+}
+
+const ProcessStep = ({ number, title, description, deliverables, image, reverse = false }: ProcessStepProps) => {
   return (
-    <div className="flex flex-col md:flex-row items-center gap-8">
+    <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8">
+      {/* Mobile Image - only visible on mobile */}
+      <div className="md:hidden w-full mb-4">
+        <img src={image} alt={title} className="rounded-xl shadow-lg w-full h-48 sm:h-56 object-cover mx-auto" />
+      </div>
+      
       <motion.div 
         variants={fadeIn(reverse ? "left" : "right", "tween", 0.2, 1)}
-        className={`md:w-1/2 ${reverse ? "md:order-2" : ""}`}
+        className={`w-full md:w-1/2 ${reverse ? "md:order-2" : ""}`}
       >
-        <div className={`bg-white p-6 rounded-xl shadow-md max-w-md ${reverse ? "ml-auto" : ""}`}>
-          <div className={`w-12 h-12 flex items-center justify-center rounded-full ${
+        <div className={`bg-white p-4 sm:p-6 rounded-xl shadow-md mx-auto md:max-w-md ${reverse ? "md:ml-auto" : ""}`}>
+          <div className={`w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full ${
             number === 1 || number === 4 ? "bg-primary" : 
             number === 2 ? "bg-emerald-600" : "bg-indigo-600"
-          } text-white mb-4`}>
+          } text-white mb-3 sm:mb-4`}>
             <i className={`fas ${
               number === 1 ? "fa-search" : 
               number === 2 ? "fa-cogs" : 
               number === 3 ? "fa-rocket" :
               "fa-chart-line"
-            }`}></i>
+            } text-sm sm:text-base`}></i>
           </div>
-          <h3 className="text-xl font-semibold mb-3">{number}. {title}</h3>
-          <p className="text-slate-600">
+          <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">{number}. {title}</h3>
+          <p className="text-slate-600 text-sm sm:text-base">
             {description}
           </p>
-          <div className="mt-4 bg-slate-50 p-3 rounded-lg">
-            <div className="text-sm text-slate-600 font-medium">Key Deliverables:</div>
-            <ul className="mt-2 text-sm text-slate-500 space-y-1">
+          <div className="mt-3 sm:mt-4 bg-slate-50 p-2 sm:p-3 rounded-lg">
+            <div className="text-xs sm:text-sm text-slate-600 font-medium">Key Deliverables:</div>
+            <ul className="mt-1 sm:mt-2 text-xs sm:text-sm text-slate-500 space-y-1">
               {deliverables.map((item, index) => (
                 <li key={index} className="flex items-center gap-2">
                   <i className={`${item.icon} ${
@@ -40,11 +59,13 @@ const ProcessStep = ({ number, title, description, deliverables, image, reverse 
           </div>
         </div>
       </motion.div>
+      
+      {/* Desktop Image - only visible on desktop */}
       <motion.div 
         variants={fadeIn(reverse ? "right" : "left", "tween", 0.2, 1)}
         className={`md:w-1/2 hidden md:block ${reverse ? "md:order-1" : ""}`}
       >
-        <img src={image} alt={title} className="rounded-xl shadow-lg max-w-md mx-auto" />
+        <img src={image} alt={title} className="rounded-xl shadow-lg max-w-md w-full h-64 lg:h-auto object-cover mx-auto" />
       </motion.div>
     </div>
   );
@@ -101,38 +122,42 @@ export default function ProcessSection() {
   ];
 
   return (
-    <section id="process" className="py-20 bg-slate-50">
+    <section id="process" className="py-12 sm:py-16 md:py-20 bg-slate-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div 
           variants={staggerContainer}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.25 }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16"
         >
           <motion.h2 
             variants={fadeIn("up", "tween", 0.1, 1)}
-            className="text-3xl md:text-4xl font-bold mb-4"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4"
           >
             Our <span className="bg-gradient-to-r from-primary to-indigo-500 bg-clip-text text-transparent">Process</span>
           </motion.h2>
           <motion.p 
             variants={fadeIn("up", "tween", 0.2, 1)}
-            className="text-slate-600 max-w-2xl mx-auto text-lg"
+            className="text-slate-600 max-w-2xl mx-auto text-sm sm:text-base md:text-lg"
           >
             We follow a systematic, AI-driven approach to transform underperforming SaaS businesses.
           </motion.p>
         </motion.div>
         
         <div className="relative">
+          {/* Timeline connector for desktop */}
           <div className="hidden md:block absolute top-[88px] bottom-20 left-1/2 w-0.5 bg-gradient-to-b from-primary via-indigo-400 to-primary/50 -translate-x-1/2 z-0"></div>
+          
+          {/* Mobile timeline connector */}
+          <div className="md:hidden absolute top-0 bottom-0 left-[20px] w-0.5 bg-gradient-to-b from-primary via-indigo-400 to-primary/50 z-0"></div>
           
           <motion.div 
             variants={staggerContainer}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, amount: 0.1 }}
-            className="space-y-12 relative z-10"
+            className="space-y-8 sm:space-y-10 md:space-y-12 relative z-10"
           >
             {processSteps.map((step) => (
               <ProcessStep key={step.number} {...step} />
