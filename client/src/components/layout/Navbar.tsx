@@ -51,12 +51,12 @@ export default function Navbar() {
           <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
               <Link key={link.path} href={link.path}>
-                <a className="relative group text-slate-600 hover:text-primary font-medium">
+                <span className="relative group text-slate-600 hover:text-primary font-medium cursor-pointer">
                   {link.name}
                   <span className={`absolute left-0 bottom-0 h-0.5 bg-primary transition-all duration-300 ${
                     location === link.path ? "w-full" : "w-0 group-hover:w-full"
                   }`}></span>
-                </a>
+                </span>
               </Link>
             ))}
             <Button asChild>
@@ -79,11 +79,11 @@ export default function Navbar() {
                 <nav className="flex flex-col gap-4 mt-8">
                   {navLinks.map((link) => (
                     <Link key={link.path} href={link.path}>
-                      <a className={`text-lg px-2 py-2 ${
+                      <span className={`text-lg px-2 py-2 cursor-pointer ${
                         location === link.path ? "text-primary font-medium" : "text-slate-600 hover:text-primary"
                       }`}>
                         {link.name}
-                      </a>
+                      </span>
                     </Link>
                   ))}
                   <Button asChild className="mt-2">
