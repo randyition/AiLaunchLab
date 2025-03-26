@@ -27,12 +27,12 @@ export default function HeroSection() {
             <div className="flex flex-col sm:flex-row gap-4">
               <Button asChild size="lg" className="bg-primary hover:bg-primary/90">
                 <Link href="/contact">
-                  Schedule a Consultation
+                  <span>Schedule a Consultation</span>
                 </Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-slate-900">
                 <Link href="/process">
-                  Learn Our Process
+                  <span className="text-white">Learn Our Process</span>
                 </Link>
               </Button>
             </div>
