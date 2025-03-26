@@ -25,16 +25,16 @@ export default function HeroSection() {
               We acquire underperforming SaaS companies and transform them into profitable businesses using our proprietary AI-driven methodology.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button asChild size="lg" className="bg-primary hover:bg-primary/90">
-                <Link href="/contact">
-                  <span>Schedule a Consultation</span>
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-slate-900">
-                <Link href="/process">
-                  <span className="text-white">Learn Our Process</span>
-                </Link>
-              </Button>
+              <Link href="/contact">
+                <Button size="lg" className="bg-primary hover:bg-primary/90">
+                  Schedule a Consultation
+                </Button>
+              </Link>
+              <Link href="/process">
+                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-slate-900">
+                  Learn Our Process
+                </Button>
+              </Link>
             </div>
             <div className="mt-8 flex items-center gap-6 text-slate-400">
               <div className="flex items-center gap-2">

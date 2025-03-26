@@ -59,11 +59,11 @@ export default function Navbar() {
                 </span>
               </Link>
             ))}
-            <Button asChild>
-              <Link href="/contact">
+            <Link href="/contact">
+              <Button>
                 Contact Us
-              </Link>
-            </Button>
+              </Button>
+            </Link>
           </div>
           
           {/* Mobile Navigation */}
@@ -86,11 +86,11 @@ export default function Navbar() {
                       </span>
                     </Link>
                   ))}
-                  <Button asChild className="mt-2">
-                    <Link href="/contact">
+                  <Link href="/contact">
+                    <Button className="mt-2">
                       Contact Us
-                    </Link>
-                  </Button>
+                    </Button>
+                  </Link>
                 </nav>
               </SheetContent>
             </Sheet>
