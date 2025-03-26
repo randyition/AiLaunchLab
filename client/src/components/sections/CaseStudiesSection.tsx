@@ -4,8 +4,23 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { fadeIn, staggerContainer } from "@/lib/animations";
 
-const CaseStudyCard = ({ image, title, category, description, metrics, delay = 0 }) => {
-  const getCategoryColor = (cat) => {
+type Metric = {
+  label: string;
+  value: string;
+  percentage: number;
+};
+
+type CaseStudy = {
+  image: string;
+  title: string;
+  category: "Project Management" | "Customer Support" | "Analytics" | string;
+  description: string;
+  metrics: Metric[];
+  delay?: number;
+};
+
+const CaseStudyCard = ({ image, title, category, description, metrics, delay = 0 }: CaseStudy) => {
+  const getCategoryColor = (cat: string) => {
     switch (cat) {
       case "Project Management":
         return { bg: "bg-emerald-100", text: "text-emerald-700" };
@@ -23,25 +38,25 @@ const CaseStudyCard = ({ image, title, category, description, metrics, delay = 0
   return (
     <motion.div variants={fadeIn("up", "tween", 0.2 + delay, 1)}>
       <Card className="overflow-hidden bg-slate-50 hover:shadow-lg transition-all duration-300 hover:translate-y-[-5px]">
-        <div className="h-48 overflow-hidden">
+        <div className="h-44 sm:h-48 overflow-hidden">
           <img src={image} alt={title} className="w-full h-full object-cover" />
         </div>
-        <div className="p-6">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-xl font-semibold">{title}</h3>
-            <span className={`${categoryColor.bg} ${categoryColor.text} text-xs font-medium px-2.5 py-0.5 rounded`}>
+        <div className="p-4 sm:p-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-3 gap-1 sm:gap-0">
+            <h3 className="text-lg sm:text-xl font-semibold">{title}</h3>
+            <span className={`${categoryColor.bg} ${categoryColor.text} text-xs font-medium px-2.5 py-0.5 rounded self-start sm:self-auto`}>
               {category}
             </span>
           </div>
-          <p className="text-slate-600 mb-4">
+          <p className="text-slate-600 mb-4 text-sm sm:text-base">
             {description}
           </p>
-          <div className="space-y-2 mb-6">
+          <div className="space-y-2 mb-5 sm:mb-6">
             {metrics.map((metric, index) => (
               <div key={index}>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-slate-500">{metric.label}</span>
-                  <span className="text-sm font-medium text-emerald-600">{metric.value}</span>
+                  <span className="text-xs sm:text-sm text-slate-500">{metric.label}</span>
+                  <span className="text-xs sm:text-sm font-medium text-emerald-600">{metric.value}</span>
                 </div>
                 <Progress 
                   value={metric.percentage} 
@@ -57,11 +72,11 @@ const CaseStudyCard = ({ image, title, category, description, metrics, delay = 0
           </div>
           <Button 
             variant="link" 
-            className={
+            className={`p-0 text-sm sm:text-base ${
               category === "Project Management" ? "text-emerald-600 hover:text-emerald-800" :
               category === "Customer Support" ? "text-primary hover:text-primary/80" :
               "text-indigo-600 hover:text-indigo-800"
-            }
+            }`}
           >
             View Full Case Study
             <i className="fas fa-arrow-right ml-2"></i>
@@ -110,24 +125,24 @@ export default function CaseStudiesSection() {
   ];
 
   return (
-    <section id="case-studies" className="py-20 bg-white">
+    <section id="case-studies" className="py-12 sm:py-16 md:py-20 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div 
           variants={staggerContainer}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.25 }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16"
         >
           <motion.h2 
             variants={fadeIn("up", "tween", 0.1, 1)}
-            className="text-3xl md:text-4xl font-bold mb-4"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4"
           >
             Case <span className="bg-gradient-to-r from-primary to-indigo-500 bg-clip-text text-transparent">Studies</span>
           </motion.h2>
           <motion.p 
             variants={fadeIn("up", "tween", 0.2, 1)}
-            className="text-slate-600 max-w-2xl mx-auto text-lg"
+            className="text-slate-600 max-w-2xl mx-auto text-sm sm:text-base md:text-lg"
           >
             See how we've transformed struggling SaaS businesses into thriving, profitable companies.
           </motion.p>
@@ -138,7 +153,7 @@ export default function CaseStudiesSection() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.25 }}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
         >
           {caseStudies.map((study, index) => (
             <CaseStudyCard 
@@ -154,9 +169,13 @@ export default function CaseStudiesSection() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.25 }}
-          className="mt-12 text-center"
+          className="mt-8 sm:mt-10 md:mt-12 text-center"
         >
-          <Button variant="outline" className="border-primary text-primary hover:bg-primary/5">
+          <Button 
+            variant="outline" 
+            size="sm"
+            className="border-primary text-primary hover:bg-primary/5 text-sm sm:text-base sm:h-10"
+          >
             View All Case Studies
             <i className="fas fa-arrow-right ml-2"></i>
           </Button>

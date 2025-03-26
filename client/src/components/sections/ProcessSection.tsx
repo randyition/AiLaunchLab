@@ -46,7 +46,7 @@ const ProcessStep = ({ number, title, description, deliverables, image, reverse 
           <div className="mt-3 sm:mt-4 bg-slate-50 p-2 sm:p-3 rounded-lg">
             <div className="text-xs sm:text-sm text-slate-600 font-medium">Key Deliverables:</div>
             <ul className="mt-1 sm:mt-2 text-xs sm:text-sm text-slate-500 space-y-1">
-              {deliverables.map((item, index) => (
+              {deliverables.map((item: DeliverableItem, index: number) => (
                 <li key={index} className="flex items-center gap-2">
                   <i className={`${item.icon} ${
                     number === 1 || number === 4 ? "text-primary" : 
